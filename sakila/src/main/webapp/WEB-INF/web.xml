@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>sakila</display-name>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>A servlet to see all the films from the Sakila database</description>
+    <display-name>FilmSakilaServlet</display-name>
+    <servlet-name>FilmSakilaServlet</servlet-name>
+    <servlet-class>inc.sam.sakila.servlets.FilmSakilaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FilmSakilaServlet</servlet-name>
+    <url-pattern>/FilmSakilaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>A servlet for adding films</description>
+    <display-name>AddFilmServlet</display-name>
+    <servlet-name>AddFilmServlet</servlet-name>
+    <servlet-class>inc.sam.sakila.servlets.AddFilmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddFilmServlet</servlet-name>
+    <url-pattern>/AddFilmServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
