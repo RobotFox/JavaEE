@@ -13,11 +13,18 @@
 <body>
 	Ci sono ${fn:length(films) } film.
 	<table cellpadding="15" border="1" style="background-color: #ffffcc;">
-	<TR>
-      <TH COLSPAN="5">
-         <H3><BR>Lista film</H3>
-      </TH>
-   </TR>
+		<TR>
+			<TH COLSPAN="5">
+				<H3>
+					<BR>Titolo:
+				</H3>
+				<form action="/primawebapp/HelloPadovaServlet" method="GET">
+					<input type="text" name="titleFilm"><br /> <input
+						type="submit" value="Cerca">
+
+				</form>
+			</TH>
+		</TR>
 		<c:forEach var="film" items="${films}">
 			<tr>
 				<td><c:out value="${film.title}"></c:out></td>
@@ -26,7 +33,8 @@
 				<td><c:out value="${film.release_year}"></c:out></td>
 				<td><c:forEach var="actor" items="${film.actors}"
 						varStatus="status">
-						${actor.firstName} ${actor.lastName}<c:if test="${status.last}">.</c:if><c:if test="${not status.last}">,</c:if>
+						${actor.firstName} ${actor.lastName}<c:if test="${status.last}">.</c:if>
+						<c:if test="${not status.last}">,</c:if>
 					</c:forEach></td>
 			</tr>
 		</c:forEach>

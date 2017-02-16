@@ -17,4 +17,38 @@
     <servlet-name>HelloPadovaServlet</servlet-name>
     <url-pattern>/HelloPadovaServlet</url-pattern>
   </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>MyFirstSecureWebApplication</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>A role</description>
+      <role-name>myrole</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  <security-role>
+    <role-name>myrole</role-name>
+  </security-role>
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>MyAppRealm</realm-name>
+    <form-login-config>
+      <form-login-page>/login.jsp</form-login-page>
+      <form-error-page>/error.login.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+  <servlet>
+    <description></description>
+    <display-name>AddFilmServlet</display-name>
+    <servlet-name>AddFilmServlet</servlet-name>
+    <servlet-class>com.corsojava.primawebapp.servlets.AddFilmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddFilmServlet</servlet-name>
+    <url-pattern>/AddFilmServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
