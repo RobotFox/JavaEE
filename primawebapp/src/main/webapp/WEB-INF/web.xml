@@ -17,7 +17,7 @@
     <servlet-name>HelloPadovaServlet</servlet-name>
     <url-pattern>/HelloPadovaServlet</url-pattern>
   </servlet-mapping>
-  <security-constraint>
+  <!-- <security-constraint>
     <web-resource-collection>
       <web-resource-name>MyFirstSecureWebApplication</web-resource-name>
       <url-pattern>/*</url-pattern>
@@ -40,7 +40,7 @@
       <form-login-page>/login.jsp</form-login-page>
       <form-error-page>/error.login.jsp</form-error-page>
     </form-login-config>
-  </login-config>
+  </login-config> -->
   <servlet>
     <description></description>
     <display-name>AddFilmServlet</display-name>

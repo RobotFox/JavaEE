@@ -27,7 +27,8 @@
 		</TR>
 		<c:forEach var="film" items="${films}">
 			<tr>
-				<td><c:out value="${film.title}"></c:out></td>
+				<td>${film.title} <a
+					href="http://localhost:8080/primawebapp/AddFilmServlet">(Modifica)</a></td>
 				<td><c:out value="${film.description}"></c:out></td>
 				<td><c:out value="${film.length}"></c:out></td>
 				<td><c:out value="${film.release_year}"></c:out></td>
