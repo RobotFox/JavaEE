@@ -7,8 +7,9 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/sakila?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">root</property>
-		<mapping resource="com/corsojava/sakiladata/model/Actor.hbm.xml" />
-		<mapping resource="com/corsojava/sakiladata/model/Language.hbm.xml" />
-		<mapping resource="com/corsojava/sakiladata/model/Film.hbm.xml" />
+		<mapping class="com.corsojava.sakiladata.model.Actor" />
+		<mapping class="com.corsojava.sakiladata.model.Language" />
+		<mapping class="com.corsojava.sakiladata.model.Film" />
+		<mapping class="com.corsojava.sakiladata.model.FilmActor" />
 	</session-factory>
 </hibernate-configuration>

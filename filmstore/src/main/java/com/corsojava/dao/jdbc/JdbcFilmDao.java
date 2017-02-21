@@ -9,12 +9,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.dbutils.DbUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.corsojava.dao.FilmDao;
 import com.corsojava.dao.SessionManager;
 import com.corsojava.model.Actor;
 import com.corsojava.model.Film;
 
+@Component
 public class JdbcFilmDao implements FilmDao {
 
 	private JdbcSessionManager sessionManager;
@@ -23,6 +26,7 @@ public class JdbcFilmDao implements FilmDao {
 	private int result;
 	private JdbcDaoFactory daoFactory;
 
+	@Autowired
 	public JdbcFilmDao(SessionManager sessionManager) {
 		this.sessionManager = (JdbcSessionManager) sessionManager;
 		this.daoFactory = new JdbcDaoFactory(this.sessionManager);
@@ -73,16 +77,18 @@ public class JdbcFilmDao implements FilmDao {
 			rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				film.setFilm_id(rs.getInt(1));
+				System.out.println(film.getActors() != null);
+				System.out.println(film.getActors().isEmpty());
 			}
 			if (film.getActors() != null && !film.getActors().isEmpty()) {
 				pstmt2 = getConnection().prepareStatement("INSERT INTO film_actor (film_id, actor_id) VALUES (?, ?)");
 				for (Actor actor : film.getActors()) {
-					if (actor.getId() ==0) {
+					if (actor.getId() == 0) {
 						daoFactory.getActorDao().addActor(actor);
 					}
 					pstmt2.setInt(1, film.getFilm_id());
 					pstmt2.setInt(2, actor.getId());
-					result += pstmt.executeUpdate();
+					result += pstmt2.executeUpdate();
 				}
 			}
 		} catch (SQLException e) {
@@ -139,8 +145,21 @@ public class JdbcFilmDao implements FilmDao {
 	}
 
 	public List<Film> findFilms(Film film) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Film> filmsWithName = new LinkedList<Film>();
+		try {
+			prepareStatement = getConnection().prepareStatement("select * from film where title LIKE ?");
+			prepareStatement.setString(1, "%" + film.getTitle() + "%");
+			rs = prepareStatement.executeQuery();
+			while (rs.next()) {
+				filmsWithName.add(new Film().withTitle(rs.getString("title")));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return filmsWithName;
 	}
 
 	private Connection getConnection() {

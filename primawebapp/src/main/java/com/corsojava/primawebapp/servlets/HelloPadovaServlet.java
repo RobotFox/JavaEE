@@ -2,6 +2,7 @@ package com.corsojava.primawebapp.servlets;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,12 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.corsojava.dao.ActorDao;
-import com.corsojava.dao.DaoFactory;
-import com.corsojava.dao.DaoFactoryInterface;
-import com.corsojava.dao.FilmDao;
-import com.corsojava.dao.SessionManager;
-import com.corsojava.model.Film;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import com.corsojava.sakiladata.model.Actor;
+import com.corsojava.sakiladata.model.Film;
+import com.corsojava.sakiladata.model.FilmActor;
+import com.corsojava.sakiladata.util.HibernateUtil;
 
 /**
  * Servlet implementation class HelloPadovaServlet
@@ -33,23 +37,32 @@ public class HelloPadovaServlet extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		DaoFactoryInterface daoFactory = DaoFactory.getDaoFactory(DaoFactory.JDBC_DAO_FACTORY_TYPE);
-		SessionManager sessionManager = daoFactory.getSessionManager();
-		try {
-			sessionManager.startConnection();
-			sessionManager.startTransaction();
-			FilmDao filmDao = daoFactory.getFilmDao();
-			List<Film> films = filmDao.getAllFilms();
-			if (request.getParameter("titleFilm") != null) {
-				films = filmDao.findFilms(new Film().withTitle(request.getParameter("titleFilm")));
-			}
-			sessionManager.commitTransaction();
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery("from Film");
+		List<Film> resultList = query.getResultList();
+		List<Film> films = new LinkedList<Film>();
+		List<FilmActor> ac = new LinkedList<FilmActor>();
+		if (request.getParameter("titleFilm") != null) {
+			query = session.createQuery("from Film f where f.title LIKE :title");
+			query.setParameter("title", "%" + request.getParameter("titleFilm") + "%");
+			films = query.getResultList();
 			request.setAttribute("films", films);
-		} catch (Exception e) {
-			sessionManager.rollbackTransaction();
-		} finally {
-			sessionManager.releaseConnection();
+		} else {
+			for (Film film : resultList) {
+				for (FilmActor filmActor : film.getFilmActors()) {
+					System.out.println(filmActor.getActor_id());
+				}
+			}
+
+			request.setAttribute("films", resultList);
 		}
+		// films = filmDao.findFilms(new
+		// Film().withTitle(request.getParameter("titleFilm")));
+		// }
+		// sessionManager.commitTransaction();
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/helloPadova.jsp");
 		rd.forward(request, response);
 	}

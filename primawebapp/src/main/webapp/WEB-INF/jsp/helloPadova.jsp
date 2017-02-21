@@ -1,4 +1,4 @@
-<%@page import="com.corsojava.model.Film"%>
+
 <%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -19,8 +19,9 @@
 					<BR>Titolo:
 				</H3>
 				<form action="/primawebapp/HelloPadovaServlet" method="GET">
-					<input type="text" name="titleFilm"><br /> <input
-						type="submit" value="Cerca">
+					<input type="hidden" name="currentFilm" value="${film}"> <input
+						type="text" name="titleFilm"><br /> <input type="submit"
+						value="Cerca">
 
 				</form>
 			</TH>
@@ -28,13 +29,15 @@
 		<c:forEach var="film" items="${films}">
 			<tr>
 				<td>${film.title} <a
-					href="http://localhost:8080/primawebapp/AddFilmServlet">(Modifica)</a></td>
+					href="http://localhost:8080/primawebapp/AddFilmServlet?currentFilm=${film.film_id}">(Modifica)</a></td>
+
 				<td><c:out value="${film.description}"></c:out></td>
 				<td><c:out value="${film.length}"></c:out></td>
 				<td><c:out value="${film.release_year}"></c:out></td>
-				<td><c:forEach var="actor" items="${film.actors}"
+				<td><c:forEach var="actor" items="${film.filmActors}"
 						varStatus="status">
-						${actor.firstName} ${actor.lastName}<c:if test="${status.last}">.</c:if>
+						${actor.actor.firstName}
+						<%-- ${actor.id.firstName} ${actor.id.lastName} --%><c:if test="${status.last}">.</c:if>
 						<c:if test="${not status.last}">,</c:if>
 					</c:forEach></td>
 			</tr>

@@ -1,20 +1,68 @@
 package com.corsojava.sakiladata.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Film {
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@Entity
+@Table(name = "film")
+public class Film implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "film_id")
 	private int film_id;
+
+	@Column(name = "title")
+	@Basic(optional = false)
 	private String title;
+
+	@Column(name = "description")
 	private String description;
+
+	@Column(name = "release_year")
 	private String release_year;
+
+	@JoinColumn(name = "language_id", referencedColumnName = "language_id")
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Language.class)
+	@Basic(optional = false)
 	private Language language_id;
+
+	@Column(name = "original_language_id")
 	private Language original_language_id;
+
+	@Transient
 	private List<Actor> actors;
+
+	@JoinColumn(name = "film_id", referencedColumnName = "film_id")
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = FilmActor.class)
+	private List<FilmActor> filmActors;
+
+	@Column(name = "length")
 	private int length;
 
 	public int getFilm_id() {
 		return film_id;
+	}
+
+	public List<FilmActor> getFilmActors() {
+		return filmActors;
+	}
+
+	public void setFilmActors(List<FilmActor> filmActors) {
+		this.filmActors = filmActors;
 	}
 
 	public void setFilm_id(int film_id) {

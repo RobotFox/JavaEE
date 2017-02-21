@@ -8,18 +8,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.dbutils.DbUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.corsojava.dao.ActorDao;
 import com.corsojava.dao.SessionManager;
 import com.corsojava.model.Actor;
 import com.corsojava.model.Film;
 
+@Component
 public class JdbcActorDao implements ActorDao {
 	private JdbcSessionManager sessionManager;
 	private PreparedStatement prepareStatement;
 	private ResultSet rs;
 	private int result;
 
+	@Autowired
 	public JdbcActorDao(SessionManager sessionManager) {
 		super();
 		this.sessionManager = (JdbcSessionManager) sessionManager;

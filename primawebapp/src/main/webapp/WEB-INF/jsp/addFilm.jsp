@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<form action="/primawebapp/AddFilmServlet" method=post>
 		<center>
 			<table cellpadding=4 cellspacing=2 border=0>
@@ -16,16 +15,17 @@
 					<br></th>
 				<tr bgcolor="#c8d8f8">
 					<td valign=top><b>Title</b> <br> <input type="text"
-						name="titleFilm" value="" size=15 maxlength=20></td>
+						name="titleFilm" value="${filmC.title}" size=15 maxlength=20></td>
 					<td valign=top><b>Description</b> <br> <input type="text"
-						name="descriptionFilm" value="" size=15 maxlength=20></td>
+						name="descriptionFilm" value="${filmC.description}" size=15
+						maxlength=20></td>
 				</tr>
 				<tr bgcolor="#c8d8f8">
 					<td valign=top><b>Release Year</b> <br> <input
-						type="text" name="releaseYear" value="" size=25 maxlength=125>
-						<br></td>
+						type="text" name="releaseYear" value="${filmC.release_year}"
+						size=25 maxlength=125> <br></td>
 					<td valign=top><b>Length</b> <br> <input type="text"
-						name="lengthFilm" value="" size=5 maxlength=5></td>
+						name="lengthFilm" value="${filmC.length}" size=5 maxlength=5></td>
 				</tr>
 				<tr>
 					<td><select name="actor" multiple>

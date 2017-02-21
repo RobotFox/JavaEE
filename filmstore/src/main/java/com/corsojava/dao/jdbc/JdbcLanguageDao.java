@@ -7,15 +7,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.commons.dbutils.DbUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.corsojava.dao.LanguageDao;
 import com.corsojava.dao.SessionManager;
 import com.corsojava.model.Language;
 
+@Component
 public class JdbcLanguageDao implements LanguageDao {
 
 	private JdbcSessionManager sessionManager;
 
+	@Autowired
 	public JdbcLanguageDao(SessionManager sessionManager) {
 		super();
 		this.sessionManager = (JdbcSessionManager) sessionManager;
