@@ -51,4 +51,7 @@
     <servlet-name>AddFilmServlet</servlet-name>
     <url-pattern>/AddFilmServlet</url-pattern>
   </servlet-mapping>
+  <listener>
+  <listener-class>com.corsojava.primawebapp.listeners.ServletListener</listener-class>
+  </listener>
 </web-app>

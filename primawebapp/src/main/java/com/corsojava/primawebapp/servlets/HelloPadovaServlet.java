@@ -36,13 +36,15 @@ public class HelloPadovaServlet extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationcontext.xml");
+		// ApplicationContext context = new
+		// ClassPathXmlApplicationContext("applicationcontext.xml");
+		ApplicationContext context = (ApplicationContext) this.getServletContext().getAttribute("SPRING_CONTEXT");
 		SpringApplicationMainBean samb = (SpringApplicationMainBean) context.getBean("mainClass");
 		List<Actor> actors = samb.getAllActors();
 		for (Actor actor : actors) {
 			System.out.println(actor.toString());
 		}
-		
+
 		request.setAttribute("actors", actors);
 
 		// ApplicationContext context = (ApplicationContext)

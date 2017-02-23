@@ -20,11 +20,11 @@ public class ServletListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
-			
-//			ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationcontext.xml" });
-//			((AbstractApplicationContext) context).registerShutdownHook();
-//			sce.getServletContext().setAttribute("SPRING_CONTEXT", context);
 			Class.forName("com.mysql.jdbc.Driver");
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationcontext.xml");
+			((AbstractApplicationContext) context).registerShutdownHook();
+			sce.getServletContext().setAttribute("SPRING_CONTEXT", context);
+
 		} catch (ClassNotFoundException e) {
 			// TODO: handle exception
 			throw new RuntimeException(e);
