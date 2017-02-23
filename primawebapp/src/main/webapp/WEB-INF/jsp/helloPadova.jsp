@@ -12,6 +12,9 @@
 </head>
 <body>
 	Ci sono ${fn:length(films) } film.
+	<c:forEach var="actor" items="${actors}">
+			<c:out value="${actor.last_name}"></c:out>
+		</c:forEach>
 	<table cellpadding="15" border="1" style="background-color: #ffffcc;">
 		<TR>
 			<TH COLSPAN="5">
@@ -26,7 +29,8 @@
 				</form>
 			</TH>
 		</TR>
-		<c:forEach var="film" items="${films}">
+		
+		<%-- <c:forEach var="film" items="${films}">
 			<tr>
 				<td>${film.title} <a
 					href="http://localhost:8080/primawebapp/AddFilmServlet?currentFilm=${film.film_id}">(Modifica)</a></td>
@@ -37,11 +41,11 @@
 				<td><c:forEach var="actor" items="${film.filmActors}"
 						varStatus="status">
 						${actor.actor.firstName}
-						<%-- ${actor.id.firstName} ${actor.id.lastName} --%><c:if test="${status.last}">.</c:if>
+						${actor.id.firstName} ${actor.id.lastName}<c:if test="${status.last}">.</c:if>
 						<c:if test="${not status.last}">,</c:if>
 					</c:forEach></td>
 			</tr>
-		</c:forEach>
+		</c:forEach> --%>
 	</table>
 </body>
 </html>

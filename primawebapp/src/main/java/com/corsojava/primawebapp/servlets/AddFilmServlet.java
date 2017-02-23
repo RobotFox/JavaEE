@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+
 /**
  * Servlet implementation class AddFilmServlet
  */
@@ -87,6 +89,7 @@ public class AddFilmServlet extends HttpServlet {
 		// } finally {
 		// sessionManager.releaseConnection();
 		// }
+		ApplicationContext context = (ApplicationContext) this.getServletContext().getAttribute("SPRING_CONTEXT");
 
 	}
 
