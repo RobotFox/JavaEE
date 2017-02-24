@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="com.corsojava_SakilaJpa"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>com.corsojava.sakilajpa.model.Staff</class>
+		<class>com.corsojava.sakilajpa.model.Store</class>
+		<class>com.corsojava.sakilajpa.model.Rental</class>
+		<class>com.corsojava.sakilajpa.model.Payment</class>
+		<class>com.corsojava.sakilajpa.model.Inventory</class>
+		<class>com.corsojava.sakilajpa.model.City</class>
+		<class>com.corsojava.sakilajpa.model.Category</class>
+		<class>com.corsojava.sakilajpa.model.Address</class>
+		<class>com.corsojava.sakilajpa.model.Film</class>
+		<class>com.corsojava.sakilajpa.model.Language</class>
+		<class>com.corsojava.sakilajpa.model.Country</class>
+		<class>com.corsojava.sakilajpa.model.Actor</class>
+		<class>com.corsojava.sakilajpa.model.Customer</class>
+		<class>com.corsojava.sakilajpa.model.FilmCategory</class>
+		<class>com.corsojava.sakilajpa.model.FilmText</class>
+		<class>com.corsojava.sakilajpa.model.FilmActor</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
