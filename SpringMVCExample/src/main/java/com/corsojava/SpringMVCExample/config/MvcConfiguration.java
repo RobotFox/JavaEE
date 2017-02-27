@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.corsojava.SpringMVCExample.converter.LanguageConverter;
 
 @Configuration
 @ComponentScan(basePackages = "com.corsojava.SpringMVCExample")
@@ -64,6 +67,16 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 		LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
 		interceptor.setParamName("lang");
 		registry.addInterceptor(interceptor);
+	}
+
+	@Bean
+	public LanguageConverter languageConverter() {
+		return new LanguageConverter();
+	}
+
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(languageConverter());
 	}
 
 }

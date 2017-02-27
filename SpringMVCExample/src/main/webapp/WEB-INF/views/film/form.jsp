@@ -10,12 +10,18 @@
 </head>
 <body>
 	<h1>Nuovo/Modifica film</h1>
-	<form:form commandName="film" action="/save" method="POST">
+	<form:form commandName="film" action="save" method="POST">
+		<div>
+			<form:errors path="title">style="color: red"</form:errors>
+		</div>
 		<div>
 			<form:label path="title">
 				<spring:message code="title"></spring:message>
 			</form:label>
 			<form:input path="title" />
+		</div>
+		<div>
+			<form:errors path="description"></form:errors>
 		</div>
 		<div>
 			<form:label path="description">
@@ -24,10 +30,16 @@
 			<form:textarea path="description" />
 		</div>
 		<div>
+			<form:errors path="releaseYear"></form:errors>
+		</div>
+		<div>
 			<form:label path="releaseYear">
 				<spring:message code="releaseYear"></spring:message>
 			</form:label>
 			<form:input path="releaseYear" />
+		</div>
+		<div>
+			<form:errors path="languageId"></form:errors>
 		</div>
 		<div>
 			<form:label path="languageId">

@@ -23,9 +23,6 @@ import inc.sam.sakilaspringdata.model.Actor;
 public class HelloPadovaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private ActorRepository repository;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -40,10 +37,7 @@ public class HelloPadovaServlet extends HttpServlet {
 		// ClassPathXmlApplicationContext("applicationcontext.xml");
 		ApplicationContext context = (ApplicationContext) this.getServletContext().getAttribute("SPRING_CONTEXT");
 		SpringApplicationMainBean samb = (SpringApplicationMainBean) context.getBean("mainClass");
-		List<Actor> actors = samb.getAllActors();
-		for (Actor actor : actors) {
-			System.out.println(actor.toString());
-		}
+		Iterable<Actor> actors = samb.getAllActors();
 
 		request.setAttribute("actors", actors);
 
